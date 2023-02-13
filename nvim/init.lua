@@ -25,10 +25,11 @@ Plug( 'nvim-telescope/telescope.nvim' ) -- Telescope search
 Plug( 'nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' } ) -- Telescope fuzzy search for telescope
 Plug( 'nvim-telescope/telescope-file-browser.nvim' ) -- file browser in tree view through telescope
 
--- lsp and tree sitter
-Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } ) -- nvim tree sitter Abstract syntax tree for telescope
-Plug( 'neovim/nvim-lspconfig' ) -- lsp configurations
+-- lsp and tree sitter 
 
+Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } )  -- nvim tree sitter Abstract syntax tree for telescope 
+
+Plug( 'neovim/nvim-lspconfig' ) -- lsp configurations 
 Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
 
 vim.call('plug#end')
@@ -47,7 +48,23 @@ lspconfig.clangd.setup({
 })
 
 -- telescope & extensions
-require("telescope").setup()
+require("telescope").setup({
+        defaults = {
+                path_display = {
+                        shorten = 2
+                },
+                initial_mode = 'normal'
+        },
+        pickers = {
+                find_files = {
+                        initial_mode = 'insert'
+                },
+                live_grep = {
+                        initial_mode = 'insert'
+                }
+        }
+
+})
 require("telescope").load_extension('fzf')
 require("telescope").load_extension('file_browser')
 
@@ -99,7 +116,7 @@ vim.opt.statusline = str
 vim.opt.mouse = 'a' -- mouse in all modes
 
 vim.cmd.colorscheme "catppuccin"
-vim.opt.listchars = {lead = '·', trail = '·'}
+vim.opt.listchars = {lead = '·', trail = '·', tab = '|·>' }
 vim.opt.list = true -- show trailing and end character
 vim.opt.number = true -- show line number
 vim.opt.relativenumber = true -- show line number as relative 
