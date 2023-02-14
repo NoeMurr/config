@@ -32,6 +32,14 @@ Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } )  -- nvim tre
 Plug( 'neovim/nvim-lspconfig' ) -- lsp configurations 
 Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
 
+-- autocompletion 
+Plug( 'ms-jpq/coq_nvim', { branch = 'coq' } );
+Plug( 'ms-jpq/coq.artifacts', { branch = 'artifacts' } );
+Plug( 'ms-jpq/coq.thirdparty', { branch = '3p' } );
+
+-- git blame inline
+Plug( 'APZelos/blamer.nvim' )
+
 vim.call('plug#end')
 
 --------------------------------------------
@@ -49,22 +57,29 @@ lspconfig.clangd.setup({
 
 -- telescope & extensions
 require("telescope").setup({
-        defaults = {
-                path_display = {
-                        shorten = 2
-                },
-                initial_mode = 'normal'
+    defaults = {
+             path_display = {
+                    shorten = 2
+             },
+             initial_mode = 'normal'
         },
-        pickers = {
-                find_files = {
-                        initial_mode = 'insert'
-                },
-                live_grep = {
-                        initial_mode = 'insert'
+    pickers = {
+        buffers = {
+            mappings = {
+                n = {
+                    ['d'] = require('telescope.actions').delete_buffer
                 }
+            }
+        },
+        find_files = {
+            initial_mode = 'insert'
+        },
+        live_grep = {
+            initial_mode = 'insert'
         }
-
+    }
 })
+
 require("telescope").load_extension('fzf')
 require("telescope").load_extension('file_browser')
 
@@ -122,6 +137,11 @@ vim.opt.number = true -- show line number
 vim.opt.relativenumber = true -- show line number as relative 
 vim.opt.expandtab = true -- convert tab to spaces
 vim.opt.tabstop = 4 -- tab = 4 spaces
+vim.opt.shiftwidth = 0 -- forced to be the same as tabstop 
+vim.opt.autochdir = true -- working directory following the current buffer
+
+-- Global plugin options
+vim.g.blamer_enabled = 1
 --------------------------------------------
 -- EOF
 --------------------------------------------
