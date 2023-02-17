@@ -78,6 +78,8 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
     --   ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     --   ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-j>'] = cmp.mapping.select_next_item(),
+      ['<C-k>'] = cmp.mapping.select_prev_item(),
       ['<C-Space>'] = cmp.mapping.complete(),
     --   ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -140,22 +142,22 @@ require("telescope").load_extension('file_browser')
 require('telescope').load_extension('dap')
 
 -- nvim-tree
-require('nvim-tree').setup({ 
-    sync_root_with_cwd = true, 
-    actions = {
-        change_dir = {
-            global = true
-        }
-    },
-    view = {
-        mappings = {
-            list = {
-                 { key = '<CR>', action = 'cd' },
-                 { key = '<Space>', action = 'preview' }
-             }
-        }
-    }
-})
+-- require('nvim-tree').setup({ 
+--     sync_root_with_cwd = true, 
+--     actions = {
+--         change_dir = {
+--             global = true
+--         }
+--     },
+--     view = {
+--         mappings = {
+--             list = {
+--                  { key = '<CR>', action = 'cd' },
+--                  { key = '<Space>', action = 'preview' }
+--              }
+--         }
+--     }
+-- })
 
 -- themes
 require('catppuccin').setup({transparent_background = true})
@@ -168,7 +170,6 @@ require('nvim_comment').setup({create_mappings = false})
 --------------------------------------------
 
 vmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format selected lines in visual mode
-imap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format current line in insert mode
 nmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format current line in normal mode
 
 -- <C-_> == ctrl + /
@@ -188,11 +189,9 @@ nmap('ca', ':lua vim.lsp.buf.code_action()<CR>') -- code actionf rom lsp (fix-av
 
 -- Status bar only in last window: in other is just a
 -- divider
-vim.opt.laststatus = 0
+vim.opt.laststatus = 3
 vim.api.nvim_set_hl(0 , 'Statusline', {link = 'Normal'})
-vim.api.nvim_set_hl(0 , 'StatuslineNC', {link = 'Normal'})
-local str = string.rep('-', vim.api.nvim_win_get_width(0))
-vim.opt.statusline = str
+vim.opt.statusline = "%{expand('%:p')} %= %l,%c %p%%"
 
 vim.opt.mouse = 'a' -- mouse in all modes
 
