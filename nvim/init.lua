@@ -18,6 +18,7 @@ Plug( 'nvim-tree/nvim-tree.lua' ) -- tree view
 
 -- Debugger 
 Plug( 'mfussenegger/nvim-dap' ) -- Debugger Adapter Protocol
+Plug( 'rcarriga/nvim-dap-ui' ) -- Debugger Adapter Protocol Ui
 Plug( 'theHamsta/nvim-dap-virtual-text' ) -- debugger virtual text
 
 -- telescope
@@ -48,6 +49,11 @@ Plug( 'hrsh7th/cmp-path' )
 Plug( 'hrsh7th/cmp-cmdline' )
 Plug( 'hrsh7th/nvim-cmp' )
 --
+
+-- modes
+Plug( 'Iron-E/nvim-libmodal' )
+
+
 vim.call('plug#end')
 
 --------------------------------------------
@@ -76,12 +82,9 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-    --   ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    --   ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-j>'] = cmp.mapping.select_next_item(),
       ['<C-k>'] = cmp.mapping.select_prev_item(),
       ['<C-Space>'] = cmp.mapping.complete(),
-    --   ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
@@ -94,32 +97,38 @@ cmp.setup({
 
 -- dap setup
 local dap = require('dap')
-require('dap.ext.vscode').load_launchjs()
--- dap.configurations.cpp = {
---   {
---     name = 'Launch',
---     type = 'lldb',
---     request = 'launch',
---     program = function()
---       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
---     end,
---     cwd = '${workspaceFolder}',
---     stopOnEntry = false,
---     args = {},
---   },
--- }
+dap.adapters.cppdbg = {
+    id = 'cppdbg',
+    type = 'executable',
+    command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.14.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
+}
+
+dap.configurations.cpp = {
+    {
+    name = "Launch file",
+    type = "cppdbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', get_project_root_or_cwd() .. '/', 'file')
+    end,
+    cwd = function() return get_project_root_or_cwd() end,
+    stopAtEntry = true,
+  },
+}
 
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
+require('dapui').setup()
+
 -- telescope & extensions
 require("telescope").setup({
     defaults = {
-             path_display = {
-                    shorten = 2
-             },
-             initial_mode = 'normal'
+        path_display = {
+            shorten = 2
         },
+        initial_mode = 'normal'
+    },
     pickers = {
         buffers = {
             mappings = {
@@ -141,47 +150,59 @@ require("telescope").load_extension('fzf')
 require("telescope").load_extension('file_browser')
 require('telescope').load_extension('dap')
 
--- nvim-tree
--- require('nvim-tree').setup({ 
---     sync_root_with_cwd = true, 
---     actions = {
---         change_dir = {
---             global = true
---         }
---     },
---     view = {
---         mappings = {
---             list = {
---                  { key = '<CR>', action = 'cd' },
---                  { key = '<Space>', action = 'preview' }
---              }
---         }
---     }
--- })
-
--- themes
+--- themes
 require('catppuccin').setup({transparent_background = true})
 
 -- comment setup
-require('nvim_comment').setup({create_mappings = false})
+require('nvim_comment').setup({
+    line_mapping = '<C-_>',
+})
 
 --------------------------------------------
--- Clang format
+-- Modes
+--------------------------------------------
+
+function EnterResizeMode() 
+
+    local resizeKeyMaps = {
+        j = 'resize -1',
+        k = 'resize +1',
+        h = 'vertical resize -1',
+        l = 'vertical resize +1',
+        w = 'winc w',
+        W = 'winc W',
+        ['='] = 'resize =',
+    }
+
+    require('libmodal').mode.enter('RESIZE', resizeKeyMaps)
+end
+
+nmap('W', ':lua EnterResizeMode()<CR>')
+--------------------------------------------
+-- Settings
 --------------------------------------------
 
 vmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format selected lines in visual mode
 nmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format current line in normal mode
 
--- <C-_> == ctrl + /
-vmap('<C-_>', ":'<,'>CommentToggle<CR>")
-nmap('<C-_>', ":CommentToggle<CR>")
-
+nmap('pf', ':lua require("telescope.builtin").find_files( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
+nmap('pL', ':lua require("telescope.builtin").live_grep( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
+nmap('pt', ':lua require("telescope").extensions.file_browser.file_browser( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
 
 nmap('t', ':Telescope file_browser<CR>')
 nmap('f', ':Telescope find_files<CR>')
 nmap('F', ':Telescope buffers<CR>')
 nmap('L', ':Telescope live_grep<CR>')
 nmap('ca', ':lua vim.lsp.buf.code_action()<CR>') -- code actionf rom lsp (fix-available)
+
+-- dap bindings
+nmap('<F5>', ':Telescope dap configurations<CR>')
+nmap('<F6>', ':DapToggleBreakpoint<CR>') 
+nmap('<F7>', ':lua require("dapui").toggle()<CR>') 
+nmap('<F9>', ':DapContinue<CR>') 
+nmap('<F10>', ':DapStepOver<CR>') 
+nmap('<F11>', ':DapStepInto<CR>') 
+nmap('<F12>', ':DapStepOut<CR>') 
 
 --------------------------------------------
 -- Vim options
@@ -204,6 +225,7 @@ vim.opt.expandtab = true -- convert tab to spaces
 vim.opt.tabstop = 4 -- tab = 4 spaces
 vim.opt.shiftwidth = 0 -- forced to be the same as tabstop 
 vim.opt.autochdir = true -- working directory following the current buffer
+vim.opt.splitright = true -- open new split on right instead of left
 
 -- Global plugin options
 vim.g.blamer_enabled = 1

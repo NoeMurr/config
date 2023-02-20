@@ -21,3 +21,18 @@ end
 function vmap(lhs, rhs, opts)
 	internal_map('v', lhs, rhs, opts)
 end
+
+function trim(s)
+   return s:match( "^%s*(.-)%s*$" )
+end
+
+function get_project_root_or_cwd()
+    local handler = io.popen('git rev-parse --show-toplevel')
+
+    if not handler then return vim.fn.cwd() end
+
+    local output = handler:read('*a')
+    local ret = handler:close()
+
+    if ret then return trim(output) else return vim.fn.cwd() end
+end
