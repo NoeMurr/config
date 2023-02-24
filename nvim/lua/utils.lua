@@ -29,10 +29,10 @@ end
 function get_project_root_or_cwd()
     local handler = io.popen('git rev-parse --show-toplevel')
 
-    if not handler then return vim.fn.cwd() end
+    if not handler then return vim.fn.getcwd() end
 
     local output = handler:read('*a')
     local ret = handler:close()
 
-    if ret then return trim(output) else return vim.fn.cwd() end
+    if ret then return trim(output) else return vim.fn.getcwd() end
 end

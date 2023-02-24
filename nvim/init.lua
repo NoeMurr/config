@@ -12,6 +12,8 @@ vim.call('plug#begin')
 
 Plug( 'catppuccin/nvim', { as = 'catppuccin' })
 
+Plug( 'startup-nvim/startup.nvim' ) -- startup screen 
+
 Plug( 'nvim-lua/plenary.nvim' ) -- useful lua functions
 Plug( 'nvim-tree/nvim-web-devicons' ) -- for file icons
 Plug( 'nvim-tree/nvim-tree.lua' ) -- tree view
@@ -59,6 +61,15 @@ vim.call('plug#end')
 --------------------------------------------
 -- Plugin's setups
 -- -----------------------------------------
+-- startup screen configuration
+-- getting the startify theme settings for modification
+startify_settings = require('startup.themes.startify')
+
+startify_settings.body = startify_settings.body_2
+startify_settings.parts = {'header', 'body', 'bookmarks'}
+
+require('startup').setup(startify_settings)
+
 -- lsp configurations
 local lspconfig = require("lspconfig")
 
@@ -66,7 +77,8 @@ local lspconfig = require("lspconfig")
 lspconfig.clangd.setup({
         on_attach = function(client, buffnr) 
                 nmap('<A-o>', ':ClangdSwitchSourceHeader<CR>')
-        end
+                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=buffnr})
+            end
 })
 
 -- cmp setup
@@ -103,21 +115,31 @@ dap.adapters.cppdbg = {
     command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.14.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
 }
 
-dap.configurations.cpp = {
+local conf = {
     {
-    name = "Launch file",
+    name = "Launch CPP",
     type = "cppdbg",
     request = "launch",
     program = function()
       return vim.fn.input('Path to executable: ', get_project_root_or_cwd() .. '/', 'file')
     end,
+    args = function() 
+        local arg_string = vim.fn.input('arguments [empty for none]: ')
+        return vim.fn.split(arg_string, " ", true)
+    end,
     cwd = function() return get_project_root_or_cwd() end,
     stopAtEntry = true,
+    setupCommands = {
+        { 
+            text = '-enable-pretty-printing',
+            description =  'enable pretty printing',
+            ignoreFailures = false 
+        },
+    },
   },
 }
 
-dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
+dap.configurations.cpp = conf;
 
 require('dapui').setup()
 
@@ -142,8 +164,38 @@ require("telescope").setup({
         },
         live_grep = {
             initial_mode = 'insert'
+        },
+    },
+    extensions = {
+        file_browser = {
+            mappings = {
+                n = {
+                    ['C'] = function() 
+                        local cls = vim.fn.input('Insert the class Name: ')
+                        if cls ~= "" then
+                            local header = cls .. '.h'
+                            local source = cls .. '.cpp'
+                            if os.rename(header, header) and os.rename(source, source) then
+                                print("Error files already exists")
+                                return;
+                            end
+                            -- creating files
+                            local hf = io.open(header, 'w')
+                            local sf = io.open(source, 'w')
+                          
+                            if not hf or not sf then 
+                                print("Error cannot create header or source file")
+                            end
+        
+                            io.close(hf)
+                            io.close(sf)
+                        end
+                    end
+                }
+            }
         }
     }
+
 })
 
 require("telescope").load_extension('fzf')
@@ -203,6 +255,15 @@ nmap('<F9>', ':DapContinue<CR>')
 nmap('<F10>', ':DapStepOver<CR>') 
 nmap('<F11>', ':DapStepInto<CR>') 
 nmap('<F12>', ':DapStepOut<CR>') 
+
+-- mapping for moving lines 
+-- normal
+nmap('J', ':m +1<CR>') -- move up one line
+nmap('K', ':m -2<CR>') -- move down one line
+
+-- visual
+vmap('J', ':m +1 | gv<CR>') -- move up one line
+vmap('K', ':m -2 | gv<CR>') -- move down one line the gv commands is used for resetting the visual selection
 
 --------------------------------------------
 -- Vim options
