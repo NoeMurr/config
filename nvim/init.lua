@@ -16,7 +16,6 @@ Plug( 'startup-nvim/startup.nvim' ) -- startup screen
 
 Plug( 'nvim-lua/plenary.nvim' ) -- useful lua functions
 Plug( 'nvim-tree/nvim-web-devicons' ) -- for file icons
-Plug( 'nvim-tree/nvim-tree.lua' ) -- tree view
 
 -- Debugger 
 Plug( 'mfussenegger/nvim-dap' ) -- Debugger Adapter Protocol
@@ -34,9 +33,6 @@ Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } )  -- nvim tre
 
 Plug( 'neovim/nvim-lspconfig' ) -- lsp configurations 
 Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
-
--- git blame inline
-Plug( 'APZelos/blamer.nvim' )
 
 -- commment creator
 Plug( 'terrortylor/nvim-comment' )
@@ -166,36 +162,6 @@ require("telescope").setup({
             initial_mode = 'insert'
         },
     },
-    extensions = {
-        file_browser = {
-            mappings = {
-                n = {
-                    ['C'] = function() 
-                        local cls = vim.fn.input('Insert the class Name: ')
-                        if cls ~= "" then
-                            local header = cls .. '.h'
-                            local source = cls .. '.cpp'
-                            if os.rename(header, header) and os.rename(source, source) then
-                                print("Error files already exists")
-                                return;
-                            end
-                            -- creating files
-                            local hf = io.open(header, 'w')
-                            local sf = io.open(source, 'w')
-                          
-                            if not hf or not sf then 
-                                print("Error cannot create header or source file")
-                            end
-        
-                            io.close(hf)
-                            io.close(sf)
-                        end
-                    end
-                }
-            }
-        }
-    }
-
 })
 
 require("telescope").load_extension('fzf')
@@ -233,9 +199,6 @@ nmap('W', ':lua EnterResizeMode()<CR>')
 --------------------------------------------
 -- Settings
 --------------------------------------------
-
-vmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format selected lines in visual mode
-nmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format current line in normal mode
 
 nmap('pf', ':lua require("telescope.builtin").find_files( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
 nmap('pL', ':lua require("telescope.builtin").live_grep( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
@@ -287,9 +250,6 @@ vim.opt.tabstop = 4 -- tab = 4 spaces
 vim.opt.shiftwidth = 0 -- forced to be the same as tabstop 
 vim.opt.autochdir = true -- working directory following the current buffer
 vim.opt.splitright = true -- open new split on right instead of left
-
--- Global plugin options
-vim.g.blamer_enabled = 1
 
 --------------------------------------------
 -- EOF
