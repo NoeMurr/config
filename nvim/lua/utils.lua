@@ -36,3 +36,5 @@ function get_project_root_or_cwd()
 
     if ret then return trim(output) else return vim.fn.getcwd() end
 end
+
+
