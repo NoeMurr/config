@@ -55,6 +55,8 @@ Plug( 'pest-parser/pest.vim' )
 -- modes
 Plug( 'Iron-E/nvim-libmodal' )
 
+-- bartab
+Plug( 'romgrk/barbar.nvim' )
 
 vim.call('plug#end')
 
@@ -76,9 +78,9 @@ local lspconfig = require("lspconfig")
 -- clangd server setup
 lspconfig.clangd.setup({
         on_attach = function(client, buffnr) 
-                nmap('<A-o>', ':ClangdSwitchSourceHeader<CR>')
-                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=buffnr})
-            end
+            nmap('<A-o>', ':ClangdSwitchSourceHeader<CR>')
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=buffnr})
+        end
 })
 
 -- rust tools 
@@ -150,7 +152,7 @@ require('dapui').setup()
 require("telescope").setup({
     defaults = {
         path_display = {
-            shorten = 2
+            "smart"
         },
         initial_mode = 'normal'
     },
@@ -183,6 +185,9 @@ require('nvim_comment').setup({
     line_mapping = '<C-_>',
 })
 
+-- bartab
+require('bufferline').setup()
+
 --------------------------------------------
 -- Modes
 --------------------------------------------
@@ -206,6 +211,8 @@ nmap('W', ':lua EnterResizeMode()<CR>')
 --------------------------------------------
 -- Settings
 --------------------------------------------
+nmap('{', 'o<ESC>')
+nmap('}', 'O<ESC>')
 
 nmap('pf', ':lua require("telescope.builtin").find_files( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
 nmap('pL', ':lua require("telescope.builtin").live_grep( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
@@ -235,6 +242,9 @@ nmap('K', ':m -2<CR>') -- move down one line
 vmap('J', ':m +1 | gv<CR>') -- move up one line
 vmap('K', ':m -2 | gv<CR>') -- move down one line the gv commands is used for resetting the visual selection
 
+-- diagnostic float
+nmap('<A-d>', ':lua vim.diagnostic.open_float()<CR>')
+
 --------------------------------------------
 -- Vim options
 --------------------------------------------
@@ -257,6 +267,12 @@ vim.opt.tabstop = 4 -- tab = 4 spaces
 vim.opt.shiftwidth = 0 -- forced to be the same as tabstop 
 vim.opt.autochdir = true -- working directory following the current buffer
 vim.opt.splitright = true -- open new split on right instead of left
+vim.opt.spell = true -- spell checking
+vim.opt.spelllang=en_us -- english
+
+-- Global plugin options
+vim.g.blamer_enabled = 1
+vim.g.blamer_show_in_visual_mode = 0
 
 --------------------------------------------
 -- EOF
