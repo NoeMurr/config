@@ -33,6 +33,7 @@ Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } )  -- nvim tre
 
 Plug( 'neovim/nvim-lspconfig' ) -- lsp configurations 
 Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
+Plug( 'simrat39/rust-tools.nvim' ) -- rust analyzer
 
 -- commment creator
 Plug( 'terrortylor/nvim-comment' )
@@ -47,6 +48,9 @@ Plug( 'hrsh7th/cmp-path' )
 Plug( 'hrsh7th/cmp-cmdline' )
 Plug( 'hrsh7th/nvim-cmp' )
 --
+
+-- syntax highlight for pest peg grammar
+Plug( 'pest-parser/pest.vim' )
 
 -- modes
 Plug( 'Iron-E/nvim-libmodal' )
@@ -76,6 +80,9 @@ lspconfig.clangd.setup({
                 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=buffnr})
             end
 })
+
+-- rust tools 
+lspconfig.rust_analyzer.setup({})
 
 -- cmp setup
 local cmp = require('cmp')
