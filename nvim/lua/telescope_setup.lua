@@ -20,6 +20,9 @@ require("telescope").setup({
         live_grep = {
             initial_mode = 'insert'
         },
+        current_buffer_fuzzy_find = {
+            initial_mode = 'insert'
+        }
     },
     extensions = {
         file_browser = {
