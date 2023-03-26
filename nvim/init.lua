@@ -58,6 +58,9 @@ Plug( 'Iron-E/nvim-libmodal' )
 -- bartab
 Plug( 'romgrk/barbar.nvim' )
 
+-- rsut tools
+Plug( 'simrat39/rust-tools.nvim' )
+
 vim.call('plug#end')
 
 --------------------------------------------
@@ -71,7 +74,7 @@ require('telescope_setup')
 require('nvim_comment_setup') -- allow me to autocomment
 require('barbar_setup') -- buffer bar
 require('themes_setup') -- themes
-
+require('rust_setup') -- rust-tools
 require('keymaps')
 
 require('vim_options')
