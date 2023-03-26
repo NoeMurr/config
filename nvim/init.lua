@@ -47,7 +47,10 @@ Plug( 'hrsh7th/cmp-buffer' )
 Plug( 'hrsh7th/cmp-path' )
 Plug( 'hrsh7th/cmp-cmdline' )
 Plug( 'hrsh7th/nvim-cmp' )
+
+Plug( 'tpope/vim-fugitive' ) -- git support
 --
+Plug( 'powerman/vim-plugin-AnsiEsc' )
 
 -- syntax highlight for pest peg grammar
 Plug( 'pest-parser/pest.vim' )
