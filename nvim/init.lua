@@ -16,6 +16,7 @@ Plug( 'startup-nvim/startup.nvim' ) -- startup screen
 
 Plug( 'nvim-lua/plenary.nvim' ) -- useful lua functions
 Plug( 'nvim-tree/nvim-web-devicons' ) -- for file icons
+--Plug( 'nvim-tree/nvim-tree.lua' ) -- tree view
 
 -- Debugger 
 Plug( 'mfussenegger/nvim-dap' ) -- Debugger Adapter Protocol
@@ -27,6 +28,7 @@ Plug( 'nvim-telescope/telescope.nvim' ) -- Telescope search
 Plug( 'nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' } ) -- Telescope fuzzy search for telescope
 Plug( 'nvim-telescope/telescope-file-browser.nvim' ) -- file browser in tree view through telescope
 Plug( 'nvim-telescope/telescope-dap.nvim' ) -- dap interface with telescope
+Plug( 'nvim-telescope/telescope-ui-select.nvim' )
 
 -- lsp and tree sitter 
 Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } )  -- nvim tree sitter Abstract syntax tree for telescope 
@@ -36,7 +38,8 @@ Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
 Plug( 'simrat39/rust-tools.nvim' ) -- rust analyzer
 
 -- commment creator
-Plug( 'terrortylor/nvim-comment' )
+-- Plug( 'terrortylor/nvim-comment' )
+Plug( 'tomtom/tcomment_vim' )
 
 -- auto complete and snippet engine
 Plug( 'L3MON4D3/LuaSnip' )
@@ -69,18 +72,21 @@ vim.call('plug#end')
 --------------------------------------------
 -- Plugin's setups
 -- -----------------------------------------
+require('keymaps')
+require('vim_options')
 require('startify_setup') -- start screen
 require('lspconfig_setup')
 require('cmp_setup') -- autocomplete plugin
 require('dap_setup') -- debugger adapter
 require('telescope_setup')
-require('nvim_comment_setup') -- allow me to autocomment
+-- require('nvim_comment_setup') -- allow me to autocomment
 require('barbar_setup') -- buffer bar
 require('themes_setup') -- themes
 require('rust_setup') -- rust-tools
 require('keymaps')
 
-require('vim_options')
+require('scratch_setup')
+
 --------------------------------------------
 -- EOF
 --------------------------------------------
