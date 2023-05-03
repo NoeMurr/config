@@ -1,4 +1,5 @@
 require("utils")
+require("deepcopy")
 -- dap setup
 local dap = require('dap')
 dap.adapters.cppdbg = {
@@ -42,58 +43,15 @@ function add_dap_config(launch_tmpl)
     launch_tmpl = launch_tmpl or cppdbgTempl
     if dap.configurations.dap ~= nil then
         dap.configurations.cpp = { 
-            make_launch_config_helper(launch_tmpl)
+            make_launch_config_helper(table.deepcopy(launch_tmpl))
         }
     else
-        table.insert(dap.configurations.cpp, make_launch_config_helper(launch_tmpl))
+        table.insert(dap.configurations.cpp, make_launch_config_helper(table.deepcopy(launch_tmpl)))
     end
 end
 
 vim.api.nvim_create_user_command('AddDapConfig', ':lua add_dap_config()<CR>', {nargs=0})
 
 dap.configurations.cpp = {};
-
--- local conf = {
---     {
---         name = "Launch CPP with arguments",
---         type = "cppdbg",
---         request = "launch",
---         program = function()
---             return vim.fn.input('Path to executable: ', get_project_root_or_cwd() .. '/', 'file')
---         end,
---         args = function() 
---             local arg_string = vim.fn.input('arguments [empty for none]: ')
---             return vim.fn.split(arg_string, " ", true)
---         end,
---         cwd = "",
---         stopAtEntry = true,
---         setupCommands = {
---             { 
---                 text = '-enable-pretty-printing',
---                 description =  'enable pretty printing',
---                 ignoreFailures = false 
---             },
---         },
---     },
---     {
---         name = "Launch CPP",
---         type = "cppdbg",
---         request = "launch",
---         program = function()
---             return vim.fn.input('Path to executable: ', get_project_root_or_cwd() .. '/', 'file')
---         end,
---         cwd = function() return get_project_root_or_cwd() end,
---         stopAtEntry = true,
---         setupCommands = {
---             { 
---                 text = '-enable-pretty-printing',
---                 description =  'enable pretty printing',
---                 ignoreFailures = false 
---             },
---         },
---     },
--- }
---
--- dap.configurations.cpp = conf;
 
 require('dapui').setup()

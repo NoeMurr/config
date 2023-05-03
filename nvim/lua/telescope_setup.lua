@@ -1,10 +1,30 @@
 -- telescope & extensions
+local send_all_to_quickfix = function(prompt_bufnr)
+    require('telescope.actions').send_to_qflist(prompt_bufnr)
+    require('telescope.builtin').quickfix()
+end
+
+local send_selected_to_quickfix = function(prompt_bufnr)
+    require('telescope.actions').send_selected_to_qflist(prompt_bufnr)
+    require('telescope.builtin').quickfix()
+end
+
 require("telescope").setup({
     defaults = {
         path_display = {
             "smart"
         },
-        initial_mode = 'normal'
+        initial_mode = 'normal',
+        mappings = {
+            i = {
+                ["<C-q>"] = send_all_to_quickfix,
+                ["<M-q>"] = send_selected_to_quickfix
+            },
+            n = {
+                ["<C-q>"] = send_all_to_quickfix,
+                ["<M-q>"] = send_selected_to_quickfix
+            }
+        }
     },
     pickers = {
         buffers = {
@@ -14,8 +34,32 @@ require("telescope").setup({
                 }
             }
         },
+        quickfix = {
+            mappings = {
+                i = {
+                    ["<C-q>"] = false,
+                    ["<M-q>"] = false
+                },
+                n = {
+                    ["<C-q>"] = false,
+                    ["<M-q>"] = false
+                }
+            }
+        },
+        quickfixhistory = {
+            mappings = {
+                i = {
+                    ["<C-q>"] = false,
+                    ["<M-q>"] = false
+                },
+                n = {
+                    ["<C-q>"] = false,
+                    ["<M-q>"] = false
+                }
+            }
+        },
         find_files = {
-            initial_mode = 'insert'
+            initial_mode = 'insert',
         },
         live_grep = {
             initial_mode = 'insert'
@@ -25,10 +69,16 @@ require("telescope").setup({
         }
     },
     extensions = {
+        ["ui-select"] = {
+            require("telescope.themes").get_cursor {
+              -- even more opts
+            }
+        },
         file_browser = {
+            hijack_netrw = true,
             mappings = {
                 n = {
-                    ['C'] = function() 
+                    ['C'] = function(prompt_bufnr)
                         local cls = vim.fn.input('Insert the class Name: ')
                         if cls ~= "" then
                             local header = cls .. '.h'
@@ -48,6 +98,9 @@ require("telescope").setup({
                             io.close(hf)
                             io.close(sf)
                         end
+
+                        local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+                        picker:refresh()
                     end
                 }
             }
@@ -59,3 +112,4 @@ require("telescope").setup({
 require("telescope").load_extension('fzf')
 require("telescope").load_extension('file_browser')
 require('telescope').load_extension('dap')
+require('telescope').load_extension('ui-select')
