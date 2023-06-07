@@ -39,12 +39,14 @@ Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
 -- git blame inline
 Plug( 'APZelos/blamer.nvim' )
 
+--lua snip for snippets
+Plug( 'L3MON4D3/LuaSnip', {tag='v1.2.1',  ['do'] = 'make install_jsregexp'} ) 
+
 -- commment creator
 -- Plug( 'terrortylor/nvim-comment' )
 Plug( 'tomtom/tcomment_vim' )
 
 -- auto complete and snippet engine
-Plug( 'L3MON4D3/LuaSnip' )
 Plug( 'saadparwaiz1/cmp_luasnip' ) 
 
 Plug( 'hrsh7th/cmp-nvim-lsp' )
@@ -65,6 +67,7 @@ Plug( 'romgrk/barbar.nvim' )
 
 -- scartch
 Plug( 'mtth/scratch.vim' )
+
 
 vim.call('plug#end')
 

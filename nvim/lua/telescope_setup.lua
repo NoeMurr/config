@@ -66,6 +66,9 @@ require("telescope").setup({
         },
         current_buffer_fuzzy_find = {
             initial_mode = 'insert'
+        },
+        builtin = {
+            initial_mode = 'insert'
         }
     },
     extensions = {

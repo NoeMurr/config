@@ -10,6 +10,7 @@ nmap('<leader>fpt', ':lua require("telescope").extensions.file_browser.file_brow
 nmap('<leader>fg', ':lua require("telescope.builtin").live_grep( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
 nmap('<leader>ff', ':lua require("telescope.builtin").find_files( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>')
 nmap('<leader>fo', ':lua require("telescope.builtin").oldfiles( { cwd = "' .. get_project_root_or_cwd() .. '" } )<CR>') 
+nmap('<leader>t', ':lua require("telescope.builtin").builtin({ include_extensions = true })<CR>') 
 
 nmap('<leader>ft', ':Telescope file_browser<CR>')
 nmap('<leader>fb', ':Telescope buffers<CR>')
