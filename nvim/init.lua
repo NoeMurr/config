@@ -29,15 +29,18 @@ Plug( 'nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' } ) -- Teles
 Plug( 'nvim-telescope/telescope-file-browser.nvim' ) -- file browser in tree view through telescope
 Plug( 'nvim-telescope/telescope-dap.nvim' ) -- dap interface with telescope
 Plug( 'nvim-telescope/telescope-ui-select.nvim' )
+Plug( 'nvim-telescope/telescope-symbols.nvim' )
+--Plug( 'kiyoon/telescope-insert-path.nvim' ) -- telescope action for path
+Plug( 'NoeMurr/telescope-insert-path.nvim' ) -- telescope action for path
+--Plug( '$HOME/personal-dev/telescope-insert-path.nvim' ) 
 
 -- lsp and tree sitter 
 Plug( 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } )  -- nvim tree sitter Abstract syntax tree for telescope 
+Plug( 'nvim-treesitter/nvim-treesitter-textobjects' ) -- text object movements
 
 Plug( 'neovim/nvim-lspconfig' ) -- lsp configurations 
 Plug( 'mfussenegger/nvim-lint' ) -- linter for nvim
-
--- git blame inline
-Plug( 'APZelos/blamer.nvim' )
+Plug( 'kosayoda/nvim-lightbulb' ) -- code action 
 
 --lua snip for snippets
 Plug( 'L3MON4D3/LuaSnip', {tag='v1.2.1',  ['do'] = 'make install_jsregexp'} ) 
@@ -68,6 +71,8 @@ Plug( 'romgrk/barbar.nvim' )
 -- scartch
 Plug( 'mtth/scratch.vim' )
 
+-- csv
+Plug( 'chrisbra/csv.vim' )
 
 vim.call('plug#end')
 
@@ -84,6 +89,7 @@ require('telescope_setup')
 -- require('nvim_comment_setup') -- allow me to autocomment
 require('barbar_setup') -- buffer bar
 require('themes_setup') -- themes
+require('tree_sitter') --treesitter
 
 
 require('scratch_setup')

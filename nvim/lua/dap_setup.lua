@@ -5,7 +5,7 @@ local dap = require('dap')
 dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.14.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
+    command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.16.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
 }
 
 -- Cppdbg dap launch configuration template
@@ -14,6 +14,7 @@ local cppdbgTempl =
     type = "cppdbg",
     request = "launch",
     stopAtEntry = false,
+    justMyCode = false,
     -- auto_continue_if_many_stopped = false,
     setupCommands = {
         {

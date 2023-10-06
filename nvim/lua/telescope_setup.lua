@@ -9,6 +9,8 @@ local send_selected_to_quickfix = function(prompt_bufnr)
     require('telescope.builtin').quickfix()
 end
 
+local path_actions = require('telescope_insert_path').setup({source_dir = "source"})
+
 require("telescope").setup({
     defaults = {
         path_display = {
@@ -18,11 +20,15 @@ require("telescope").setup({
         mappings = {
             i = {
                 ["<C-q>"] = send_all_to_quickfix,
-                ["<M-q>"] = send_selected_to_quickfix
+                ["<M-q>"] = send_selected_to_quickfix,
+                ["<C-p>g"] = path_actions.insert_relgit_a_insert,
+                ["<C-p>s"] = path_actions.insert_relsource_a_insert
             },
             n = {
                 ["<C-q>"] = send_all_to_quickfix,
-                ["<M-q>"] = send_selected_to_quickfix
+                ["<M-q>"] = send_selected_to_quickfix,
+                ["<C-p>g"] = path_actions.insert_relgit_a_normal,
+                ["<C-p>s"] = path_actions.insert_relsource_a_normal
             }
         }
     },

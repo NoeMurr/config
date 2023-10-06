@@ -31,3 +31,5 @@ vim.opt.clipboard = 'unnamedplus' -- drop the difference between "+ and "* allow
 vim.g.blamer_enabled = 1
 vim.g.blamer_show_in_visual_mode = 0
 
+vim.g.telescope_insert_path_source_dir = 'source'
+
