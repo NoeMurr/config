@@ -1,12 +1,7 @@
+package.path = package.path .. ";../?.lua"
+
 require("utils")
 require("deepcopy")
--- dap setup
-local dap = require('dap')
-dap.adapters.cppdbg = {
-    id = 'cppdbg',
-    type = 'executable',
-    command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.14.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
-}
 
 -- Cppdbg dap launch configuration template
 local cppdbgTempl =
@@ -40,6 +35,10 @@ local function make_launch_config_helper( launch_template )
 end
 
 function add_dap_config(launch_tmpl)
+    local dap = require('dap')
+    -- if not dap then
+    --     vim.
+    -- end
     launch_tmpl = launch_tmpl or cppdbgTempl
     if dap.configurations.dap ~= nil then
         dap.configurations.cpp = { 
@@ -50,8 +49,26 @@ function add_dap_config(launch_tmpl)
     end
 end
 
-vim.api.nvim_create_user_command('AddDapConfig', ':lua add_dap_config()<CR>', {nargs=0})
 
-dap.configurations.cpp = {};
+return {
+    { 
+        'mfussenegger/nvim-dap',
+        config = function() 
+            local dap = require('dap')
 
-require('dapui').setup()
+            dap.adapters.cppdbg = {
+                id = 'cppdbg',
+                type = 'executable',
+                command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.14.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
+            }
+
+            vim.api.nvim_create_user_command('AddDapConfig', ':lua add_dap_config()<CR>', {nargs=0})
+        end
+    },
+
+    { 'rcarriga/nvim-dap-ui' }, -- debug ui
+}
+
+-- Plug( 'mfussenegger/nvim-dap' ) -- Debugger Adapter Protocol
+-- Plug( 'rcarriga/nvim-dap-ui' ) -- Debugger Adapter Protocol Ui
+-- Plug( 'theHamsta/nvim-dap-virtual-text' ) -- debugger virtual text
