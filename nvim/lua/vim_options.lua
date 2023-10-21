@@ -25,6 +25,8 @@ vim.opt.spelllang=en_us -- english
 
 vim.opt.hlsearch = false -- : set nohlsearch
 
+vim.opt.clipboard = 'unnamedplus' -- allows easy copy and paste from vim and OS
+
 -- Global plugin options
 vim.g.blamer_enabled = 1
 vim.g.blamer_show_in_visual_mode = 0
