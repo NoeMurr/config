@@ -11,8 +11,8 @@ vmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format selected li
 nmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format current line in normal mode
 
 nmap('<leader>fpt', function() telescope.extensions.file_browser.file_browser( { cwd = get_project_root_or_cwd() } ) end)
-nmap('<leader>fg', function() telescope_builtin.live_grep( { cwd = get_project_root_or_cwd() } ) end)
 nmap('<leader>ff', function() telescope_builtin.find_files( { cwd = get_project_root_or_cwd() } ) end)
+nmap('<leader>fg', function() telescope_builtin.live_grep( { cwd = get_project_root_or_cwd() } ) end)
 nmap('<leader>fo', function() telescope_builtin.oldfiles( { cwd = get_project_root_or_cwd() } ) end) 
 nmap('<leader>t', function() telescope_builtin.builtin({ include_extensions = true }) end) 
 nmap('<leader>o', telescope_builtin.lsp_document_symbols)
@@ -38,7 +38,7 @@ nmap('<F12>', ':DapStepOut<CR>')
 
 nmap('<Leader>df', ':Telescope dap frames<CR>')
 nmap('<Leader>db', ':Telescope dap list_breakpoints<CR>')
-nmap('<Leader>dr', function() require('dap').repl.toggle({height = 10}, 'abo split') end )
+nmap('<Leader>dr', function() require('dap').repl.toggle({height = 10}, 'split') end )
 
 nmap('<Leader>ds', function()
   local widgets = require('dap.ui.widgets')
