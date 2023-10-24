@@ -2,8 +2,6 @@ local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
 local dap = require('dap')
 
-vim.g.mapleader = " "
-
 nmap('{', 'o<ESC>')
 nmap('}', 'O<ESC>')
 
@@ -73,7 +71,7 @@ nmap('K', ':m -2<CR>', {desc = 'move current line down one line'}) -- move down 
 -- vmap('K', ':m -2 <CR> gv') -- move down one line the gv commands is used for resetting the visual selection
 
 -- diagnostic float
-nmap('<leader>d', vim.diagnostic.open_float, {desc = 'open diagnostics popup'})
+nmap('<leader>sd', vim.diagnostic.open_float, {desc = 'open diagnostics popup'})
 
 -- buffer navigation
 nmap('<A-l>', ':BufferNext<CR>', {desc = 'go to next buffer'})

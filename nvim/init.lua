@@ -3,7 +3,6 @@
 -- -----------------------------------------
 require('utils')
 
-require('keymaps')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -20,7 +19,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+require('pre_lazy_keymaps')
+
 require("lazy").setup("plugins")
 
+require('keymaps')
 require('vim_options')
 
