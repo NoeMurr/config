@@ -20,5 +20,9 @@ return {
         end
     }, 
 
-    { 'pest-parser/pest.vim' },
+    { 
+        'pest-parser/pest.vim',
+        build = "cargo install pest-language-server",
+        opts = {},
+    },
 }

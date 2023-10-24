@@ -56,14 +56,17 @@ return {
             dap.adapters.cppdbg = {
                 id = 'cppdbg',
                 type = 'executable',
-                command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.14.3-linux-x64/debugAdapters/bin/OpenDebugAD7',
+                command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.15.4-linux-x64/debugAdapters/bin/OpenDebugAD7',
             }
 
             vim.api.nvim_create_user_command('AddDapConfig', ':lua add_dap_config()<CR>', {nargs=0})
         end
     },
 
-    { 'rcarriga/nvim-dap-ui' }, -- debug ui
+    { 
+        'rcarriga/nvim-dap-ui',
+        opts = {}
+    }, -- debug ui
 }
 
 -- Plug( 'mfussenegger/nvim-dap' ) -- Debugger Adapter Protocol

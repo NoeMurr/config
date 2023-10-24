@@ -2,6 +2,8 @@ local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
 local dap = require('dap')
 
+nmap('<F1>', ':WhichKey<CR>') -- help keybindings
+
 nmap('{', 'o<ESC>')
 nmap('}', 'O<ESC>')
 
@@ -40,7 +42,7 @@ nmap('<Leader>dr', function() require('dap').repl.toggle({height = 10}, 'split')
 
 nmap('<Leader>ds', function()
   local widgets = require('dap.ui.widgets')
-  local view    = widgets.centered_float(widgets.stacks)
+  local view    = widgets.centered_float(widgets.scopes)
 
   vim.keymap.set('n', '<ESC>', view.close, { buffer = view.buf })
 end, {desc = 'DAP: show current stack'})
