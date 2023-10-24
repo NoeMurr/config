@@ -40,13 +40,10 @@ function add_dap_config(launch_tmpl)
     --     vim.
     -- end
     launch_tmpl = launch_tmpl or cppdbgTempl
-    if dap.configurations.dap ~= nil then
-        dap.configurations.cpp = { 
-            make_launch_config_helper(table.deepcopy(launch_tmpl))
-        }
-    else
-        table.insert(dap.configurations.cpp, make_launch_config_helper(table.deepcopy(launch_tmpl)))
-    end
+    
+    dap.configurations.cpp = dap.configurations.cpp or {}
+    
+    table.insert(dap.configurations.cpp, make_launch_config_helper(table.deepcopy(launch_tmpl)))
 end
 
 
