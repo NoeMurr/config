@@ -2,28 +2,27 @@
 -- Requirements
 -- -----------------------------------------
 require('utils')
-require('plugins') -- plugins installations 
 
---------------------------------------------
--- Plugin's setups
--- -----------------------------------------
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+require('pre_lazy_keymaps')
+
+require("lazy").setup("plugins")
+
 require('keymaps')
 require('vim_options')
-require('startify_setup') -- start screen
-require('lspconfig_setup')
-require('cmp_setup') -- autocomplete plugin
-require('dap_setup') -- debugger adapter
-require('telescope_setup')
--- require('nvim_comment_setup') -- allow me to autocomment
-require('barbar_setup') -- buffer bar
-require('themes_setup') -- themes
-require('tree_sitter') --treesitter
-require('oil_setup') -- oil
-require('which_key') -- 
 
-
-require('scratch_setup')
-
---------------------------------------------
--- EOF
---------------------------------------------

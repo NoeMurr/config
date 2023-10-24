@@ -25,7 +25,7 @@ vim.opt.spelllang=en_us -- english
 
 vim.opt.hlsearch = false -- : set nohlsearch
 
-vim.opt.clipboard = 'unnamedplus' -- drop the difference between "+ and "* allowing the copy to go diretly to the clipboard
+vim.opt.clipboard = 'unnamedplus' -- allows easy copy and paste from vim and OS
 
 -- Global plugin options
 vim.g.blamer_enabled = 1
