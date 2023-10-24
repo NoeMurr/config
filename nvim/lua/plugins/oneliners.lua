@@ -19,4 +19,13 @@ return {
     { 'romgrk/barbar.nvim' },
 
     { 'tpope/vim-fugitive' },
+
+    { 'kosayoda/nvim-lightbulb' },
+
+    {
+      'stevearc/oil.nvim',
+      opts = {},
+      -- Optional dependencies
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
 }
