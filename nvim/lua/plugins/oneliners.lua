@@ -14,6 +14,8 @@ return {
 
     { 'powerman/vim-plugin-AnsiEsc' },
 
+    { 'MunifTanjim/nui.nvim' },
+
     {
         'romgrk/barbar.nvim',
         dependencies = {
