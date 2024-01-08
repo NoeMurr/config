@@ -10,9 +10,12 @@ return {
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })()
         end,
+        opts = { ensure_installed = { "html"} },
     },
 
     { 'powerman/vim-plugin-AnsiEsc' },
+
+    { 'MunifTanjim/nui.nvim' },
 
     {
         'romgrk/barbar.nvim',
@@ -41,4 +44,18 @@ return {
       -- Optional dependencies
       dependencies = { "nvim-tree/nvim-web-devicons" },
     },
+    --
+    {
+        'numToStr/Comment.nvim',
+        opts = {},
+        lazy = false,
+    },
+
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    }
 }
