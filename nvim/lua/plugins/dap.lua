@@ -46,6 +46,18 @@ function add_dap_config(launch_tmpl)
     table.insert(dap.configurations.cpp, make_launch_config_helper(table.deepcopy(launch_tmpl)))
 end
 
+function remove_dap_config(name)
+    local dap = require('dap')
+    
+    for i, conf in ipairs(dap.configurations.cpp) do
+        if conf.name == name then
+            table.remove(dap.configurations.cpp, i)
+            return;
+        end
+    end
+
+    error("Unknown configuration " .. name)
+end
 
 return {
     { 
@@ -56,10 +68,11 @@ return {
             dap.adapters.cppdbg = {
                 id = 'cppdbg',
                 type = 'executable',
-                command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.15.4-linux-x64/debugAdapters/bin/OpenDebugAD7',
+                command = '/home/noemurr/.vscode/extensions/ms-vscode.cpptools-1.18.5-linux-x64/debugAdapters/bin/OpenDebugAD7',
             }
 
             vim.api.nvim_create_user_command('AddDapConfig', ':lua add_dap_config()<CR>', {nargs=0})
+            vim.api.nvim_create_user_command('RemoveDapConfig', ':lua remove_dap_config(vim.fn.input(\'Dap configuration: \'))<CR>', {nargs=0})
         end
     },
 

@@ -1,14 +1,18 @@
 local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
 local dap = require('dap')
-
 nmap('<F1>', ':WhichKey<CR>') -- help keybindings
+
 
 nmap('{', 'o<ESC>')
 nmap('}', 'O<ESC>')
 
-vmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format selected lines in visual mode
-nmap('<C-k>', ':pyf /usr/share/clang/clang-format.py<cr>') -- format current line in normal mode
+vmap('<C-k>', vim.lsp.buf.format, {desc = 'forat selected line in visual mode'})
+nmap('<C-k>', function() 
+    local r, c = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.lsp.buf.format({range = {['start'] = {r, 0}, ['end'] = {r, 0}}}) 
+end, {desc = 'format current line'})
+nmap('<C-A-K>', vim.lsp.buf.format, {desc = 'format all file'})
 
 nmap('<leader>fpt', function() telescope.extensions.file_browser.file_browser( { cwd = get_project_root_or_cwd() } ) end, {desc = 'Open file browser in project root'})
 nmap('<leader>ff', function() telescope_builtin.find_files( { cwd = get_project_root_or_cwd() } ) end, {desc = 'Open file in project'})
@@ -65,8 +69,8 @@ end, {desc = 'DAP: evaluate expression'})
 
 -- mapping for moving lines 
 -- normal
-nmap('J', ':m +1<CR>', {desc = 'move current line up one line'}) -- move up one line
-nmap('K', ':m -2<CR>', {desc = 'move current line down one line'}) -- move down one line
+nmap('<A-j>', ':m +1<CR>', {desc = 'move current line up one line'}) -- move up one line
+nmap('<A-k>', ':m -2<CR>', {desc = 'move current line down one line'}) -- move down one line
 
 -- visual
 -- vmap('J', ':m +1 <CR> gv') -- move up one line
@@ -74,6 +78,7 @@ nmap('K', ':m -2<CR>', {desc = 'move current line down one line'}) -- move down 
 
 -- diagnostic float
 nmap('<leader>sd', vim.diagnostic.open_float, {desc = 'open diagnostics popup'})
+nmap('<leader>st', ':TroubleToggle<CR>', {desc = 'open diagnostics popup'})
 
 -- buffer navigation
 nmap('<A-l>', ':BufferNext<CR>', {desc = 'go to next buffer'})
@@ -89,5 +94,8 @@ nmap('<leader>l', '<C-W>l', {desc = 'move to right window'})
 nmap('<leader>p', '"0p', {desc = 'paste last yanked value, not cut'})
 
 -- disabling mappings
-map('q:', '<nop>');
+nmap('q:', '<nop>');
+vmap('q:', '<nop>');
+imap('q:', '<nop>');
+
 nmap("<Space>", '<nop>');
