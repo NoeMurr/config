@@ -1,27 +1,45 @@
 return {
     {
-        'simrat39/rust-tools.nvim',
-        config = function()
-            local rt = require("rust-tools")
-
-            rt.setup({
-              server = {
-                on_attach = function(_, bufnr)
+      'mrcjkb/rustaceanvim',
+      version = '^3', -- Recommended
+      ft = { 'rust' },
+     dependencies = {
+        "nvim-lua/plenary.nvim",
+        "mfussenegger/nvim-dap",
+        "lvimuser/lsp-inlayhints.nvim",
+      },
+      config = function() 
+        vim.g.rustaceanvim = {
+          -- Plugin configuration
+          tools = {
+          },
+          -- LSP configuration
+          server = {
+            on_attach = function(client, bufnr)
                   -- Hover actions
-                  vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+                  vim.keymap.set("n", "<C-space>", function() vim.cmd.RustLsp('hover', 'actions') end, { buffer = bufnr })
                   -- Code action groups
-                  vim.keymap.set("n", "ca", rt.code_action_group.code_action_group, { buffer = bufnr })
-                end,
-                procMacro = {
-                  enable = true
-                },
+
+                  -- lsp-inlayhints
+                  require("lsp-inlayhints").on_attach(client, bufnr)
+                  require("lsp-inlayhints").show()
+            end,
+            settings = {
+              -- rust-analyzer language server configuration
+              ['rust-analyzer'] = {
               },
-            })
-        end
-    }, 
+            },
+          },
+          -- DAP configuration
+          dap = {
+          },
+        }
+      end
+    },
 
     { 
         'pest-parser/pest.vim',
+        ft = 'pest',
         build = "cargo install pest-language-server",
         opts = {},
     },

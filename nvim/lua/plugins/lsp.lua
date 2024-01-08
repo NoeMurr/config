@@ -13,5 +13,8 @@ return {
             })
         end
     },
-
+    {
+      "lvimuser/lsp-inlayhints.nvim",
+      opts = {}
+    },
 }
