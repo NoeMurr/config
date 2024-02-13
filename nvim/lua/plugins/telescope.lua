@@ -75,42 +75,49 @@ return {
                 }
                 },
                 extensions = {
-                ["ui-select"] = {
-                    require("telescope.themes").get_cursor {
-                      -- even more opts
-                    }
-                },
-                file_browser = {
-                    hijack_netrw = true,
-                    mappings = {
-                    n = {
-                        ['C'] = function(prompt_bufnr)
-                        local cls = vim.fn.input('Insert the class Name: ')
-                        if cls ~= "" then
-                            local header = cls .. '.h'
-                            local source = cls .. '.cpp'
-                            if os.rename(header, header) and os.rename(source, source) then
-                            print("Error files already exists")
-                            return;
+                    ["ui-select"] = {
+                        require("telescope.themes").get_cursor {
+                          -- even more opts
+                        }
+                    },
+                    file_browser = {
+                        hijack_netrw = true,
+                        mappings = {
+                        n = {
+                            ['C'] = function(prompt_bufnr)
+                            local cls = vim.fn.input('Insert the class Name: ')
+                            if cls ~= "" then
+                                local header = cls .. '.h'
+                                local source = cls .. '.cpp'
+                                if os.rename(header, header) and os.rename(source, source) then
+                                print("Error files already exists")
+                                return;
+                                end
+                                -- creating files
+                                local hf = io.open(header, 'w')
+                                local sf = io.open(source, 'w')
+                              
+                                if not hf or not sf then 
+                                print("Error cannot create header or source file")
+                                end
+                    
+                                io.close(hf)
+                                io.close(sf)
                             end
-                            -- creating files
-                            local hf = io.open(header, 'w')
-                            local sf = io.open(source, 'w')
-                          
-                            if not hf or not sf then 
-                            print("Error cannot create header or source file")
-                            end
-                
-                            io.close(hf)
-                            io.close(sf)
-                        end
 
-                        local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
-                        picker:refresh()
-                        end
+                            local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+                            picker:refresh()
+                            end
+                        }
+                        }
                     }
-                    }
-                }
+                    -- dap = {
+                    --     mappings = {
+                    --         n = {
+                    --
+                    --         }
+                    --     }
+                    -- }
                 }
             })
         end

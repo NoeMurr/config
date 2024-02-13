@@ -9,7 +9,21 @@ local cppdbgTempl =
     type = "cppdbg",
     request = "launch",
     stopAtEntry = false,
-    -- auto_continue_if_many_stopped = false,
+    setupCommands = {
+        {
+             text = '-enable-pretty-printing',
+             description =  'enable pretty printing',
+             ignoreFailures = false,
+        },
+    },
+}
+
+-- Cppdbg dap launch configuration template
+local cppdbgAttachTempl =
+  {
+    type = "cppdbg",
+    request = "attach",
+    stopAtEntry = false,
     setupCommands = {
         {
              text = '-enable-pretty-printing',
@@ -36,9 +50,6 @@ end
 
 function add_dap_config(launch_tmpl)
     local dap = require('dap')
-    -- if not dap then
-    --     vim.
-    -- end
     launch_tmpl = launch_tmpl or cppdbgTempl
     
     dap.configurations.cpp = dap.configurations.cpp or {}
