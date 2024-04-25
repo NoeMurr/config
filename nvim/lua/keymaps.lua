@@ -78,7 +78,9 @@ nmap('<A-k>', ':m -2<CR>', {desc = 'move current line down one line'}) -- move d
 
 -- diagnostic float
 nmap('<leader>sd', vim.diagnostic.open_float, {desc = 'open diagnostics popup'})
-nmap('<leader>st', ':TroubleToggle<CR>', {desc = 'open diagnostics popup'})
+nmap('<leader>s[', vim.diagnostic.goto_prev, {desc = 'goto previous diagnostic'})
+nmap('<leader>s]', vim.diagnostic.goto_next, {desc = 'goto next diagnostic'})
+nmap('<leader>st', ':TroubleToggle<CR>', {desc = 'open Trouble quicklist'})
 
 -- buffer navigation
 nmap('<A-l>', ':BufferNext<CR>', {desc = 'go to next buffer'})
@@ -93,6 +95,15 @@ nmap('<leader>l', '<C-W>l', {desc = 'move to right window'})
 
 nmap('<leader>p', '"0p', {desc = 'paste last yanked value, not cut'})
 
+nmap('<leader>z', function() 
+    vim.cmd('setlocal foldexpr=getline(v:lnum)=~@/?0:1 foldmethod=expr')
+    vim.cmd('normal zM')
+end, {desc = 'Fold all the lines not matching the last search'})
+
+nmap('<leader>Z', function() 
+    vim.cmd('setlocal foldexpr=getline(v:lnum)=~@/?1:0 foldmethod=expr')
+    vim.cmd('normal zM')
+end, {desc = 'Fold all the lines not matching the last search'})
 -- disabling mappings
 nmap('q:', '<nop>');
 vmap('q:', '<nop>');

@@ -23,5 +23,6 @@ require('pre_lazy_keymaps')
 require("lazy").setup("plugins")
 
 require('keymaps')
+require('custom_commands')
 require('vim_options')
 

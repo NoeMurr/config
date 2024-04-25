@@ -27,6 +27,8 @@ vim.opt.hlsearch = false -- : set nohlsearch
 
 vim.opt.clipboard = 'unnamedplus' -- allows easy copy and paste from vim and OS
 
+vim.opt.cc = '80,150' -- column column delimiters
+
 -- Global plugin options
 vim.g.blamer_enabled = 1
 vim.g.blamer_show_in_visual_mode = 0

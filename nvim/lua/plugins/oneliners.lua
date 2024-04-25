@@ -18,7 +18,7 @@ return {
     { 'MunifTanjim/nui.nvim' },
 
     {
-        'romgrk/barbar.nvim',
+        'romgrk/barbar.nvim', 
         dependencies = {
           'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
         },
@@ -77,5 +77,7 @@ return {
             'RainbowDelimQuoted',
             'RainbowMultiDelim'
         }
-    }
+    },
+
+    { "nvim-neotest/nvim-nio" }
 }
