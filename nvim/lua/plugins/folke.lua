@@ -6,8 +6,12 @@ return {
         vim.o.timeout = true
         vim.o.timeoutlen = 300
       end,
+      keys = {
+          {'<F1>', ':WhichKey<CR>'}, -- help keybindings
+      },
       opts = {}
     },
+
     {
       -- "folke/todo-comments.nvim",
       "ynhhoJ/todo-comments.nvim", -- temporary until new updateds on todo-comments

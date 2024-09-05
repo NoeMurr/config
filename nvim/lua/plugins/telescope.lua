@@ -14,6 +14,21 @@ return {
         
         dependencies = { 'nvim-lua/plenary.nvim' },
         
+        keys = {
+            {'<leader>fpt', function() require('telescope').extensions.file_browser.file_browser( { cwd = get_project_root_or_cwd() } ) end, desc = 'Open file browser in project root'},
+            {'<leader>ff', function() require('telescope.builtin').find_files( { cwd = get_project_root_or_cwd() } ) end, desc = 'Open file in project'},
+            {'<leader>fg', function() require('telescope.builtin').live_grep( { cwd = get_project_root_or_cwd() } ) end, desc = 'Grep in project'},
+            {'<leader>fo', function() require('telescope.builtin').oldfiles( { cwd = get_project_root_or_cwd() } ) end, desc = 'Open recent file'}, 
+            {'<leader>t', function() require('telescope.builtin').builtin({ include_extensions = true }) end, desc = 'Open telescope pickers list'}, 
+            {'<leader>o', require('telescope.builtin').lsp_document_symbols, desc = 'Goto symbol in document'},
+
+            {'<leader>ft', ':Telescope file_browser<CR>', desc = 'Open file browser in current directory'},
+            {'<leader>fb', ':Telescope buffers<CR>', desc = 'Open buffers list'},
+            {'<leader>/', ':Telescope current_buffer_fuzzy_find<CR>', desc = 'Search in file'},
+            {'<leader>qf', ':Telescope quickfix<CR>', desc = 'Open quickfix telescope picker'},
+            {'<leader>qh', ':Telescope quickfixhistory<CR>', desc = 'Open quickfix history telescope picker'},
+        },
+
         config = function()
             require('telescope').setup({
                 defaults = {
@@ -110,14 +125,7 @@ return {
                             end
                         }
                         }
-                    }
-                    -- dap = {
-                    --     mappings = {
-                    --         n = {
-                    --
-                    --         }
-                    --     }
-                    -- }
+                    },
                 }
             })
         end
@@ -149,7 +157,7 @@ return {
 
     {
         'nvim-telescope/telescope-dap.nvim',
-        dependencies = { 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap', 'nvim-treesitter/nvim-treesitter' },
+        dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-dap', 'nvim-treesitter/nvim-treesitter' },
         config = function()
             require("telescope").load_extension('dap')
         end

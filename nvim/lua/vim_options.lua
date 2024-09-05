@@ -14,7 +14,7 @@ vim.cmd.colorscheme "catppuccin"
 vim.opt.listchars = {lead = '·', trail = '·', tab = '|·>' }
 vim.opt.list = true -- show trailing and end character
 vim.opt.number = true -- show line number
-vim.opt.relativenumber = true -- show line number as relative 
+vim.opt.relativenumber = false -- show line number as relative 
 vim.opt.expandtab = true -- convert tab to spaces
 vim.opt.tabstop = 4 -- tab = 4 spaces
 vim.opt.shiftwidth = 0 -- forced to be the same as tabstop 

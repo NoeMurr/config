@@ -27,8 +27,6 @@ return {
         version = '^1.0.0', -- optional: only update when a new 1.x version is released
     },
 
-    { 'tpope/vim-fugitive' },
-
     { 
         'kosayoda/nvim-lightbulb',
         opts = { 
@@ -38,13 +36,6 @@ return {
         },
     },
 
-    {
-      'stevearc/oil.nvim',
-      opts = {},
-      -- Optional dependencies
-      dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-    --
     {
         'numToStr/Comment.nvim',
         opts = {},
@@ -56,7 +47,8 @@ return {
         -- follow latest release.
         version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).
-        build = "make install_jsregexp"
+        build = "make install_jsregexp",
+        init = function() require("luasnip.loaders.from_vscode").lazy_load({paths = {'~/.config/Code/User/snippets/cpp.json'}}) end
     },
 
     {
@@ -77,6 +69,14 @@ return {
             'RainbowDelimQuoted',
             'RainbowMultiDelim'
         }
+    },
+
+    {
+        'VonHeikemen/fine-cmdline.nvim',
+        keys = {
+	    {":", '<cmd>FineCmdline<CR>', desc = "command line"}
+	},
+        dependencies = { "MunifTanjim/nui.nvim" },
     },
 
     { "nvim-neotest/nvim-nio" }
