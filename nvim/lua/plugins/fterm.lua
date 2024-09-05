@@ -1,4 +1,5 @@
 local lgTerm = nil
+local ldTerm = nil
 
 return {
 
@@ -9,6 +10,7 @@ return {
         local ft = require('FTerm')
         ft.setup({})
 
+        -- lazygit 
         lgTerm = ft:new({ 
             ft = 'fterm_lg', 
             cmd = {'lazygit'}, 
@@ -17,6 +19,17 @@ return {
                 width = 0.9,
             },
         });
+
+        -- lazydocker
+        ldTerm = ft:new({ 
+            ft = 'fterm_ld', 
+            cmd = {'lazydocker'}, 
+            dimensions = {
+                height = 0.9,
+                width = 0.9,
+            },
+        });
+            
     end,
 
     keys = {
@@ -25,5 +38,8 @@ return {
 
         {"<A-g>", function() lgTerm:toggle() end, desc = "Toggle LazyGit terminal"},
         {"<A-g>", function() lgTerm:toggle() end, desc = "Toggle LazyGit terminal", mode = 't'},
+
+        {"<A-d>", function() ldTerm:toggle() end, desc = "Toggle LazyDocker terminal"},
+        {"<A-d>", function() ldTerm:toggle() end, desc = "Toggle LazyDocker terminal", mode = 't'},
     }
 }
