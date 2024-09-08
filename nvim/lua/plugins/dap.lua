@@ -87,28 +87,29 @@ return {
             vim.api.nvim_create_user_command('RemoveDapConfig', ':lua remove_dap_config(vim.fn.input(\'Dap configuration: \'))<CR>', {nargs=0})
         end,
         keys = {
-            {'<F4>', ':DapTerminate<CR>', desc = 'DAP: Terminate active debug session'},
+            {'<F4>', function() vim.cmd('DapTerminate') end, desc = 'DAP: Terminate active debug session'},
 
-            {'<F5>', ':Telescope dap configurations<CR>', desc = 'DAP: open dap configurations'},
+            -- {'<F5>', ':Telescope dap configurations<CR>', desc = 'DAP: open dap configurations'},
+            {'<F5>', function() vim.cmd('Telescope dap configurations') end, desc = 'DAP: open dap configurations'},
 
-            {'<F6>', ':DapToggleBreakpoint<CR>', desc = 'DAP: toggle breakpoint'}, 
+            {'<F6>', function() vim.cmd('DapToggleBreakpoint') end, desc = 'DAP: toggle breakpoint'}, 
 
             {'<F30>', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'DAP: toggle breakpoint with condition'},
 
             {'<F33>', function() require('dap').run_to_cursor() end, desc = 'DAP: run to cursor'},
             --
 
-            {'<F9>', ':DapContinue<CR>', desc = 'DAP: continue'}, 
+            {'<F9>', function() vim.cmd('DapContinue') end, desc = 'DAP: continue'}, 
 
-            {'<F10>', ':DapStepOver<CR>', desc = 'DAP: step over'}, 
+            {'<F10>', function() vim.cmd('DapStepOver') end, desc = 'DAP: step over'}, 
 
-            {'<F11>', ':DapStepInto<CR>', desc = 'DAP: step into'}, 
+            {'<F11>', function() vim.cmd('DapStepInto') end, desc = 'DAP: step into'}, 
 
-            {'<F12>', ':DapStepOut<CR>', desc = 'DAP: step out'}, 
+            {'<F12>', function() vim.cmd('DapStepOut') end, desc = 'DAP: step out'}, 
 
-            {'<Leader>df', ':Telescope dap frames<CR>', desc = 'DAP: open current thread\'s stack frames'},
+            {'<Leader>df', function() vim.cmd('Telescope dap frames') end, desc = 'DAP: open current thread\'s stack frames'},
 
-            {'<Leader>db', ':Telescope dap list_breakpoints<CR>', desc = 'DAP: list active breakpoints'},
+            {'<Leader>db', function() vim.cmd('Telescope dap list_breakpoints') end, desc = 'DAP: list active breakpoints'},
             
             {'<Leader>dr', function() require('dap').repl.toggle({height = 10}, 'split') end , desc = 'DAP: open compile console'},
 

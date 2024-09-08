@@ -1,5 +1,6 @@
 local lgTerm = nil
 local ldTerm = nil
+local IpythonTerm = nil
 
 return {
 
@@ -29,6 +30,12 @@ return {
                 width = 0.9,
             },
         });
+
+        -- lazydocker
+        IpythonTerm = ft:new({ 
+            ft = 'fterm_ipython', 
+            cmd = {'ipython'}, 
+        });
             
     end,
 
@@ -41,5 +48,8 @@ return {
 
         {"<A-d>", function() ldTerm:toggle() end, desc = "Toggle LazyDocker terminal"},
         {"<A-d>", function() ldTerm:toggle() end, desc = "Toggle LazyDocker terminal", mode = 't'},
+
+        {"<A-p>", function() IpythonTerm:toggle() end, desc = "Toggle ipython terminal"},
+        {"<A-p>", function() IpythonTerm:toggle() end, desc = "Toggle ipython terminal", mode = 't'},
     }
 }

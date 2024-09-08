@@ -22,11 +22,11 @@ return {
             {'<leader>t', function() require('telescope.builtin').builtin({ include_extensions = true }) end, desc = 'Open telescope pickers list'}, 
             {'<leader>o', require('telescope.builtin').lsp_document_symbols, desc = 'Goto symbol in document'},
 
-            {'<leader>ft', ':Telescope file_browser<CR>', desc = 'Open file browser in current directory'},
-            {'<leader>fb', ':Telescope buffers<CR>', desc = 'Open buffers list'},
-            {'<leader>/', ':Telescope current_buffer_fuzzy_find<CR>', desc = 'Search in file'},
-            {'<leader>qf', ':Telescope quickfix<CR>', desc = 'Open quickfix telescope picker'},
-            {'<leader>qh', ':Telescope quickfixhistory<CR>', desc = 'Open quickfix history telescope picker'},
+            {'<leader>ft', function() require('telescope').extensions.file_browser.file_browser() end, desc = 'Open file browser in current directory'},
+            {'<leader>fb', function() require('telescope.builtin').buffers() end, desc = 'Open buffers list'},
+            {'<leader>/',  function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc = 'Search in file'},
+            {'<leader>qf', function() require('telescope.builtin').quickfix() end, desc = 'Open quickfix telescope picker'},
+            {'<leader>qh', function() require('telescope.builtin').quickfixhistory() end, desc = 'Open quickfix history telescope picker'},
         },
 
         config = function()

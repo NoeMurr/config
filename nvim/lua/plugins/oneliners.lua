@@ -70,33 +70,20 @@ return {
             'RainbowMultiDelim'
         }
     },
-
+        
     {
-        'VonHeikemen/fine-cmdline.nvim',
-        opts = {
-            cmdline = {
-                prompt = '> ',
-            },
-            popup = {
-                position = {
-                  row = '50%',
-                  col = '50%',
-                },
-                size = {
-                  width = '60%',
-                },
-                border = {
-                  style = 'rounded',
-                },
-                win_options = {
-                  winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
-                },
-              },
-        },
-        keys = {
-	        {":", '<cmd>FineCmdline<CR>', desc = "command line"}
-	    },
-        dependencies = { "MunifTanjim/nui.nvim" },
+        "rcarriga/nvim-notify",
+        config = function() 
+            vim.notify = require("notify")
+            vim.notify.setup({
+                background_colour = "#000000",
+            })
+
+            telescope = require("telescope")
+            if (telescope ~= nil) then
+                telescope.load_extension("notify")
+            end
+        end,
     },
 
     { "nvim-neotest/nvim-nio" }

@@ -13,8 +13,8 @@ nmap('<leader>ca', vim.lsp.buf.code_action, {desc = 'Code actions pop up'}) -- c
 
 -- mapping for moving lines 
 -- normal
-nmap('<A-j>', ':m +1<CR>', {desc = 'move current line up one line'}) -- move up one line
-nmap('<A-k>', ':m -2<CR>', {desc = 'move current line down one line'}) -- move down one line
+nmap('<A-j>', function() vim.cmd('m +1') end, {desc = 'move current line up one line'}) -- move up one line
+nmap('<A-k>', function() vim.cmd('m -2') end, {desc = 'move current line down one line'}) -- move down one line
 
 -- visual
 -- vmap('J', ':m +1 <CR> gv') -- move up one line
@@ -24,13 +24,12 @@ nmap('<A-k>', ':m -2<CR>', {desc = 'move current line down one line'}) -- move d
 nmap('<leader>sd', vim.diagnostic.open_float, {desc = 'open diagnostics popup'})
 nmap('<leader>s[', vim.diagnostic.goto_prev, {desc = 'goto previous diagnostic'})
 nmap('<leader>s]', vim.diagnostic.goto_next, {desc = 'goto next diagnostic'})
-nmap('<leader>st', ':TroubleToggle<CR>', {desc = 'open Trouble quicklist'})
 
 -- buffer navigation
-nmap('<A-l>', ':BufferNext<CR>', {desc = 'go to next buffer'})
-nmap('<A-h>', ':BufferPrevious<CR>', {desc = 'go to previous buffer'})
+nmap('<A-l>', function() vim.cmd('BufferNext') end, {desc = 'go to next buffer'})
+nmap('<A-h>', function() vim.cmd('BufferPrevious') end, {desc = 'go to previous buffer'})
 
-nmap('<leader>w', ':bd<CR>', {desc = 'close current buffer'})
+nmap('<leader>w', function() vim.cmd('bd') end, {desc = 'close current buffer'})
 
 nmap('<leader>h', '<C-W>h', {desc = 'move to left window'})
 nmap('<leader>j', '<C-W>j', {desc = 'move to window down'})
