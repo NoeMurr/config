@@ -1,0 +1,30 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/hyper.toml"
+]
+
+[font.bold]
+family = "JetBrainsMono NF"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono NF"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMono NF"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono NF"
+style = "Regular"
+
+[terminal.shell]
+program = "/bin/tmux"
+
+[window]
+decorations = "none"
+opacity = 0.65
+blur = true
+
+[terminal]

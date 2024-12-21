@@ -13,8 +13,7 @@ return {
     },
 
     {
-      -- "folke/todo-comments.nvim",
-      "ynhhoJ/todo-comments.nvim", -- temporary until new updateds on todo-comments
+      "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
       opts = {
         search = {

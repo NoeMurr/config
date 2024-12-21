@@ -1,6 +1,6 @@
 -- in this file there are all the plugins that do not require any configuration.
 -- To avoid a great ploriferation of files in this folder the onliner will be here.
-return { 
+return {
     { 'nvim-lua/plenary.nvim' },
 
     { 'nvim-tree/nvim-web-devicons' },
@@ -10,7 +10,7 @@ return {
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })()
         end,
-        opts = { ensure_installed = { "html"} },
+        opts = { ensure_installed = { "html" } },
     },
 
     { 'powerman/vim-plugin-AnsiEsc' },
@@ -18,19 +18,19 @@ return {
     { 'MunifTanjim/nui.nvim' },
 
     {
-        'romgrk/barbar.nvim', 
+        'romgrk/barbar.nvim',
         dependencies = {
-          'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+            'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
         },
         init = function() vim.g.barbar_auto_setup = false end,
         opts = {},
         version = '^1.0.0', -- optional: only update when a new 1.x version is released
     },
 
-    { 
+    {
         'kosayoda/nvim-lightbulb',
-        opts = { 
-            autocmd = { enabled = true }, 
+        opts = {
+            autocmd = { enabled = true },
             float = { enabled = true },
             sign = { enabled = false },
         },
@@ -48,7 +48,7 @@ return {
         version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).
         build = "make install_jsregexp",
-        init = function() require("luasnip.loaders.from_vscode").lazy_load({paths = {'~/.config/Code/User/snippets/cpp.json'}}) end
+        init = function() require("luasnip.loaders.from_vscode").lazy_load({ paths = { '~/.config/Code/User/snippets/cpp.json' } }) end
     },
 
     {
@@ -70,10 +70,10 @@ return {
             'RainbowMultiDelim'
         }
     },
-        
+
     {
         "rcarriga/nvim-notify",
-        config = function() 
+        config = function()
             vim.notify = require("notify")
             vim.notify.setup({
                 background_colour = "#000000",

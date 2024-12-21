@@ -21,8 +21,7 @@ return {
                   -- Code action groups
 
                   -- lsp-inlayhints
-                  require("lsp-inlayhints").on_attach(client, bufnr)
-                  require("lsp-inlayhints").show()
+                    vim.lsp.inlay_hint.enable(true, { 0 })
             end,
             settings = {
               -- rust-analyzer language server configuration
