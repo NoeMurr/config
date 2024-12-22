@@ -42,11 +42,16 @@ return {
         config = function()
             require('dap').var_placeholders["${workspaceFolder}"] = get_project_root_or_cwd;
             require('dap.ext.vscode').json_decode = require('json5').parse
+            local project_launchjs = get_project_root_or_cwd() .. '/.launch.json5';
 
-            load_launchjs(get_project_root_or_cwd() .. '/.launch.json5') -- automatic load .launch.json5 file in project root
+            load_launchjs(project_launchjs) -- automatic load .launch.json5 file in project root
 
             vim.api.nvim_create_user_command("LoadLaunchJson", function()
                 load_launchjs(vim.fn.input("launch.json path:", get_project_root_or_cwd(), 'file'))
+            end, { desc = "loads the launch.json" })
+
+            vim.api.nvim_create_user_command("EditProjectsLaunchJson", function()
+                vim.cmd("tabnew " .. project_launchjs);
             end, { desc = "loads the launch.json" })
         end,
         keys = {
