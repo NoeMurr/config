@@ -1,6 +1,6 @@
-local lgTerm = nil
-local ldTerm = nil
-local IpythonTerm = nil
+LgTerm = nil
+LdTerm = nil
+IpythonTerm = nil
 
 return {
 
@@ -11,7 +11,7 @@ return {
         ft.setup({})
 
         -- lazygit
-        lgTerm = ft:new({
+        LgTerm = ft:new({
             ft = 'fterm_lg',
             cmd = { 'lazygit' },
             dimensions = {
@@ -21,7 +21,7 @@ return {
         });
 
         -- lazydocker
-        ldTerm = ft:new({
+        LdTerm = ft:new({
             ft = 'fterm_ld',
             cmd = { 'lazydocker' },
             dimensions = {
@@ -41,11 +41,11 @@ return {
         { "<A-i>", function() require('FTerm').toggle() end, desc = "Toggle FTerm terminal" },
         { "<A-i>", function() require('FTerm').toggle() end, desc = "Toggle FTerm terminal",      mode = 't' },
 
-        { "<A-g>", function() lgTerm:toggle() end,           desc = "Toggle LazyGit terminal" },
-        { "<A-g>", function() lgTerm:toggle() end,           desc = "Toggle LazyGit terminal",    mode = 't' },
+        { "<A-g>", function() LgTerm:toggle() end,           desc = "Toggle LazyGit terminal" },
+        { "<A-g>", function() LgTerm:toggle() end,           desc = "Toggle LazyGit terminal",    mode = 't' },
 
-        { "<A-d>", function() ldTerm:toggle() end,           desc = "Toggle LazyDocker terminal" },
-        { "<A-d>", function() ldTerm:toggle() end,           desc = "Toggle LazyDocker terminal", mode = 't' },
+        { "<A-d>", function() LdTerm:toggle() end,           desc = "Toggle LazyDocker terminal" },
+        { "<A-d>", function() LdTerm:toggle() end,           desc = "Toggle LazyDocker terminal", mode = 't' },
 
         { "<A-p>", function() IpythonTerm:toggle() end,      desc = "Toggle ipython terminal" },
         { "<A-p>", function() IpythonTerm:toggle() end,      desc = "Toggle ipython terminal",    mode = 't' },
