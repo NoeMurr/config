@@ -43,9 +43,11 @@ return {
             require('dap').var_placeholders["${workspaceFolder}"] = get_project_root_or_cwd;
             require('dap.ext.vscode').json_decode = require('json5').parse
 
-            vim.api.nvim_create_user_command("LoadProjectLaunchJson", function()
-                load_launchjs(get_project_root_or_cwd() .. '/.launch.json5');
-            end, { desc = "loads the .launch.json5 file in tuhe project root" })
+            load_launchjs(get_project_root_or_cwd() .. '/.launch.json5') -- automatic load .launch.json5 file in project root
+
+            vim.api.nvim_create_user_command("LoadLaunchJson", function()
+                load_launchjs(vim.fn.input("launch.json path:", get_project_root_or_cwd(), 'file'))
+            end, { desc = "loads the launch.json" })
         end,
         keys = {
             { '<F4>',       function() vim.cmd('DapTerminate') end,                                               desc = 'DAP: Terminate active debug session' },
