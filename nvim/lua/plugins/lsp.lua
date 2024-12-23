@@ -42,6 +42,15 @@ return {
                     })
                 end,
 
+                ["rust_analyzer"] = function()
+                    require("lspconfig").rust_analyzer.setup({
+                        on_attach = function(client, buffnr)
+                            require('lsp-inlayhints').on_attach(client, buffnr)
+                            require('lsp-inlayhints').show()
+                        end
+                    })
+                end,
+
                 ["lua_ls"] = function()
                     -- print("lua_ls installed")
                     local lspconfig = require("lspconfig")

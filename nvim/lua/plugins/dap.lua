@@ -34,7 +34,7 @@ return {
         lazy = false,
     },
     {
-        'mfussenegger/nvim-dap',
+        "mfussenegger/nvim-dap",
         dir = "/home/noe/workspace/nvim-dap",
         dependencies = {
             "Joakker/lua-json5",
@@ -42,9 +42,14 @@ return {
         config = function()
             require('dap').var_placeholders["${workspaceFolder}"] = get_project_root_or_cwd;
             require('dap.ext.vscode').json_decode = require('json5').parse
-            local project_launchjs = get_project_root_or_cwd() .. '/.launch.json5';
+            local project_launchjs = get_project_root_or_cwd() .. '/.launch.json';
 
             load_launchjs(project_launchjs) -- automatic load .launch.json5 file in project root
+
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+                pattern = { "launch.json", ".launch.json" },
+                command = "set ft=json5",
+            })
 
             vim.api.nvim_create_user_command("LoadLaunchJson", function()
                 load_launchjs(vim.fn.input("launch.json path:", get_project_root_or_cwd(), 'file'))
