@@ -64,6 +64,10 @@ return {
                         }
                     }
                 end,
+
+                ['pest_ls'] = function()
+                    require('pest-vim').setup {}
+                end,
             })
         end
     },
